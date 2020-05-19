@@ -1,14 +1,14 @@
-export default (ctx, inject) => {
+export default ({ app: { router } }, inject) => {
   let ready = false
 
-  ctx.app.router.onReady(() => {
+  router.onReady(() => {
     // Mark when the router has completed the initial navigation.
     ready = true
   })
 
   function create() {
     window['yaCounter<%= options.id %>'] = new Ya.Metrika(<%= JSON.stringify(options) %>)
-    ctx.app.router.afterEach((to, from) => {
+    router.afterEach((to, from) => {
       if (!ready) {
         // Don't record a duplicate hit for the initial navigation.
         return
@@ -19,7 +19,6 @@ export default (ctx, inject) => {
         // This will need special handling because router.afterEach is called *before* DOM is updated.
       })
     })
-    ctx.$metrika = window['yaCounter<%= options.id %>']
     inject('metrika', window['yaCounter<%= options.id %>'])
   }
 
