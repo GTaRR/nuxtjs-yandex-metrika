@@ -1,7 +1,7 @@
-export default ({ app: { router } }, inject) => {
+export default (ctx, inject) => {
   let ready = false
 
-  router.onReady(() => {
+  ctx.app.router.onReady(() => {
     // Mark when the router has completed the initial navigation.
     ready = true
   })
@@ -10,7 +10,7 @@ export default ({ app: { router } }, inject) => {
     if (process.env.NODE_ENV === 'production') {
       window['yaCounter<%= options.id %>'] = new Ya.Metrika( <%= JSON.stringify(options) %>
     )
-      router.afterEach((to, from) => {
+      ctx.app.router.afterEach((to, from) => {
         if (!ready) {
           // Don't record a duplicate hit for the initial navigation.
           return
@@ -24,7 +24,7 @@ export default ({ app: { router } }, inject) => {
       inject('metrika', window['yaCounter<%= options.id %>'])
     } else {
       console.warn('[vue-yandex-metrika] Tracking is disabled, because env option is not "production"')
-      inject('metrika', {
+      const metrikaFunctions = {
         addFileExtension() { console.log('[vue-yandex-metrika] addFileExtension:', arguments)},
         extLink() { console.log('[vue-yandex-metrika] extLink:', arguments) },
         file() { console.log('[vue-yandex-metrika] file:', arguments) },
@@ -36,7 +36,9 @@ export default ({ app: { router } }, inject) => {
         replacePhones() { console.log('[vue-yandex-metrika] replacePhones:', arguments) },
         setUserID() { console.log('[vue-yandex-metrika] setUserID:', arguments) },
         userParams() { console.log('[vue-yandex-metrika] userParams:', arguments) }
-      })
+      }
+      ctx.$metrika = metrikaFunctions
+      inject('metrika', metrikaFunctions)
     }
   }
 
