@@ -1,11 +1,6 @@
 const path = require('path');
 
 module.exports = function yandexMetrika(options) {
-  // Don't include on dev mode
-  if (this.options.dev && process.env.NODE_ENV !== 'production') {
-    return;
-  }
-
   // Script preload
   this.options.head.link.push({
     href:
