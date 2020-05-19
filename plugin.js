@@ -8,8 +8,7 @@ export default (ctx, inject) => {
 
   function create() {
     if (process.env.NODE_ENV === 'production') {
-      window['yaCounter<%= options.id %>'] = new Ya.Metrika( <%= JSON.stringify(options) %>
-    )
+      window['yaCounter<%= options.id %>'] = new Ya.Metrika( <%= JSON.stringify(options) %> )
       ctx.app.router.afterEach((to, from) => {
         if (!ready) {
           // Don't record a duplicate hit for the initial navigation.
@@ -23,19 +22,19 @@ export default (ctx, inject) => {
       })
       inject('metrika', window['yaCounter<%= options.id %>'])
     } else {
-      console.warn('[vue-yandex-metrika] Tracking is disabled, because env option is not "production"')
+      console.warn('[nuxtjs-yandex-metrika] Tracking is disabled, because env option is not "production"')
       const metrikaFunctions = {
-        addFileExtension() { console.log('[vue-yandex-metrika] addFileExtension:', arguments)},
-        extLink() { console.log('[vue-yandex-metrika] extLink:', arguments) },
-        file() { console.log('[vue-yandex-metrika] file:', arguments) },
-        getClientID() { console.log('[vue-yandex-metrika] getClientID:', arguments) },
-        hit() { console.log('[vue-yandex-metrika] hit:', arguments) },
-        notBounce() { console.log('[vue-yandex-metrika] notBounce:', arguments) },
-        params() { console.log('[vue-yandex-metrika] params:', arguments) },
-        reachGoal() { console.log('[vue-yandex-metrika] reachGoal:', arguments) },
-        replacePhones() { console.log('[vue-yandex-metrika] replacePhones:', arguments) },
-        setUserID() { console.log('[vue-yandex-metrika] setUserID:', arguments) },
-        userParams() { console.log('[vue-yandex-metrika] userParams:', arguments) }
+        addFileExtension() { console.log('[nuxtjs-yandex-metrika] addFileExtension:', arguments)},
+        extLink() { console.log('[nuxtjs-yandex-metrika] extLink:', arguments) },
+        file() { console.log('[nuxtjs-yandex-metrika] file:', arguments) },
+        getClientID() { console.log('[nuxtjs-yandex-metrika] getClientID:', arguments) },
+        hit() { console.log('[nuxtjs-yandex-metrika] hit:', arguments) },
+        notBounce() { console.log('[nuxtjs-yandex-metrika] notBounce:', arguments) },
+        params() { console.log('[nuxtjs-yandex-metrika] params:', arguments) },
+        reachGoal() { console.log('[nuxtjs-yandex-metrika] reachGoal:', arguments) },
+        replacePhones() { console.log('[nuxtjs-yandex-metrika] replacePhones:', arguments) },
+        setUserID() { console.log('[nuxtjs-yandex-metrika] setUserID:', arguments) },
+        userParams() { console.log('[nuxtjs-yandex-metrika] userParams:', arguments) }
       }
       ctx.$metrika = metrikaFunctions
       inject('metrika', metrikaFunctions)
