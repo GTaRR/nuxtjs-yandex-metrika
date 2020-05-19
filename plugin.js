@@ -7,7 +7,7 @@ export default ({ app: { router } }, inject) => {
   })
 
   function create() {
-    if (this.options.dev && process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'production') {
       window['yaCounter<%= options.id %>'] = new Ya.Metrika( <%= JSON.stringify(options) %>
     )
       router.afterEach((to, from) => {
