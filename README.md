@@ -18,7 +18,7 @@ Or also in middleware:
 
 ```js
 export default function({ route, $metrika }) {
-  if(process.client && route.path === '/demo/') {
+  if (process.client && route.path === '/demo/') {
     $metrika.reachGoal('demo')
   }
 }
